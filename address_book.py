@@ -22,7 +22,6 @@ class AddressBook(UserDict):
         upcoming_birthdays = []
     
         for name, record in self.data.items():
-            print(record.birthday)
             birthday_this_year = record.birthday.value.date().replace(year=today.year)
             if today.month == 12 and today.day > 20:
                 birthday_this_year = birthday_this_year.replace(year=birthday_this_year.year + 1)
@@ -35,20 +34,7 @@ class AddressBook(UserDict):
                         case 6:
                             birthday_this_year += timedelta(days=1)
 
-                    upcoming_birthdays.append({"name": name, "congratulation_date": datetime.strftime(birthday_this_year, "%Y.%m.%d")})
+                    upcoming_birthdays.append({"name": name, "congratulation_date": datetime.strftime(birthday_this_year, "%d.%m.%Y")})
     
         return upcoming_birthdays
 
-# book = AddressBook()
-
-#     # Створення запису для John
-# john_record = Record("John")
-# john_record.add_phone("1234567890")
-# john_record.add_phone("5555555555")
-# john_record.add_birthday("04.01.1998")
-
-# print(john_record)
-# book.add_record(john_record)
-# print(book)
-
-# print(book.get_upcoming_birthdays())

@@ -42,8 +42,8 @@ def show_all(book: AddressBook) -> None :
 
 
 @input_error
-def show_phone( args: list, book: AddressBook) -> None: 
-    name = args[0]
+def show_phone(args, book: AddressBook) -> None: 
+    name, *_ = args
     record = book.find(name)
     if record is None:
        print("Contact not found.")
@@ -64,7 +64,7 @@ def change_contact(args: list, book: AddressBook) -> str:
 
 
 @input_error
-def add_birthday(args, book):
+def add_birthday(args, book: AddressBook):
     name, birthday, *_ = args
     record = book.find(name)
 
@@ -74,7 +74,7 @@ def add_birthday(args, book):
     return record.add_birthday(birthday)
 
 @input_error
-def show_birthday(args, book):
+def show_birthday(args, book: AddressBook):
     name, *_ = args
     record = book.find(name)
 
@@ -87,9 +87,11 @@ def show_birthday(args, book):
 
 @input_error
 def birthdays(book: AddressBook):
-    dates = book.book.get_upcoming_birthdays()
-    if len(dates) == 0:
+    congratulations = book.get_upcoming_birthdays()
+    
+    if len(congratulations) == 0:
         print("Not upcoming birthday")
         return
-    for name, day in dates.items():
-        print(f"")
+
+    for person in congratulations:
+        print(f"Name: {person["name"].capitalize()}. Congratulation date - {person["congratulation_date"]}")
